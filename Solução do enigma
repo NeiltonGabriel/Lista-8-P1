@@ -1,0 +1,187 @@
+#include <stdio.h>
+
+int main()
+{
+    int linhas, colunas, quantidade = 0;
+    scanf("%d %d", &linhas, &colunas);
+    
+    if (linhas == 1 || colunas == 1) 
+    {
+        printf("%d\n", quantidade);
+        return 0;
+    }
+    
+    int quadro[linhas][colunas];
+    int contador_linhas = 0, contador_colunas = 0;
+
+    while(contador_linhas < linhas)
+    {
+        while(contador_colunas < colunas)
+        {
+            scanf("%d", &quadro[contador_linhas][contador_colunas]);
+            contador_colunas++;
+        }
+        contador_colunas = 0;
+        contador_linhas++;
+    }
+    contador_colunas = 0;
+    contador_linhas = 0;
+
+    while(contador_linhas < linhas - 1)
+    {
+        while(contador_colunas < colunas - 1)
+        {
+            if (quadro[contador_linhas][contador_colunas] == 0)
+            {
+                if (quadro[contador_linhas][contador_colunas + 1] == 1)
+                {
+                    if (quadro[contador_linhas + 1][contador_colunas] == 2)
+                    {
+                        if (quadro[contador_linhas + 1][contador_colunas + 1] == 3) quantidade++;
+                    }
+                    else if (quadro[contador_linhas + 1][contador_colunas] == 3)
+                    {
+                        if (quadro[contador_linhas + 1][contador_colunas + 1] == 2) quantidade++;
+                    }
+                }
+                else if (quadro[contador_linhas][contador_colunas + 1] == 2)
+                {
+                    if (quadro[contador_linhas + 1][contador_colunas] == 1)
+                    {
+                        if (quadro[contador_linhas + 1][contador_colunas + 1] == 3) quantidade++;
+                    }
+                    else if (quadro[contador_linhas + 1][contador_colunas] == 3)
+                    {
+                        if (quadro[contador_linhas + 1][contador_colunas + 1] == 1) quantidade++;
+                    }
+                }
+                else if (quadro[contador_linhas][contador_colunas + 1] == 3)
+                {
+                    if (quadro[contador_linhas + 1][contador_colunas] == 1)
+                    {
+                        if (quadro[contador_linhas + 1][contador_colunas +  1] == 2) quantidade++;
+                    }
+                    else if (quadro[contador_linhas + 1][contador_colunas] == 2)
+                    {
+                        if (quadro[contador_linhas + 1][contador_colunas + 1] == 1) quantidade++;
+                    }
+                }
+            }
+            else if (quadro[contador_linhas][contador_colunas] == 1)
+            {
+                if (quadro[contador_linhas][contador_colunas + 1] == 0)
+                {
+                    if (quadro[contador_linhas + 1][contador_colunas] == 2)
+                    {
+                        if (quadro[contador_linhas + 1][contador_colunas + 1] == 3) quantidade++;
+                    }
+                    else if (quadro[contador_linhas + 1][contador_colunas] == 3)
+                    {
+                        if (quadro[contador_linhas + 1][contador_colunas + 1] == 2) quantidade++;
+                    }
+                }
+                else if (quadro[contador_linhas][contador_colunas + 1] == 2)
+                {
+                    if (quadro[contador_linhas + 1][contador_colunas] == 0)
+                    {
+                        if (quadro[contador_linhas + 1][contador_colunas + 1] == 3) quantidade++;
+                    }
+                    else if (quadro[contador_linhas + 1][contador_colunas] == 3)
+                    {
+                        if (quadro[contador_linhas + 1][contador_colunas + 1] == 0) quantidade++;
+                    }
+                }
+                else if (quadro[contador_linhas][contador_colunas + 1] == 3)
+                {
+                    if (quadro[contador_linhas + 1][contador_colunas] == 0)
+                    {
+                        if (quadro[contador_linhas + 1][contador_colunas +  1] == 2) quantidade++;
+                    }
+                    else if (quadro[contador_linhas + 1][contador_colunas] == 2)
+                    {
+                        if (quadro[contador_linhas + 1][contador_colunas + 1] == 0) quantidade++;
+                    }
+                }
+            }
+            else if (quadro[contador_linhas][contador_colunas] == 2)
+            {
+                if (quadro[contador_linhas][contador_colunas + 1] == 0)
+                {
+                    if (quadro[contador_linhas + 1][contador_colunas] == 1)
+                    {
+                        if (quadro[contador_linhas + 1][contador_colunas + 1] == 3) quantidade++;
+                    }
+                    else if (quadro[contador_linhas + 1][contador_colunas] == 3)
+                    {
+                        if (quadro[contador_linhas + 1][contador_colunas + 1] == 1) quantidade++;
+                    }
+                }
+                else if (quadro[contador_linhas][contador_colunas + 1] == 1)
+                {
+                    if (quadro[contador_linhas + 1][contador_colunas] == 0)
+                    {
+                        if (quadro[contador_linhas + 1][contador_colunas + 1] == 3) quantidade++;
+                    }
+                    else if (quadro[contador_linhas + 1][contador_colunas] == 3)
+                    {
+                        if (quadro[contador_linhas + 1][contador_colunas + 1] == 0) quantidade++;
+                    }
+                }
+                else if (quadro[contador_linhas][contador_colunas + 1] == 3)
+                {
+                    if (quadro[contador_linhas + 1][contador_colunas] == 0)
+                    {
+                        if (quadro[contador_linhas + 1][contador_colunas +  1] == 1) quantidade++;
+                    }
+                    else if (quadro[contador_linhas + 1][contador_colunas] == 1)
+                    {
+                        if (quadro[contador_linhas + 1][contador_colunas + 1] == 0) quantidade++;
+                    }
+                }
+            }
+            else if (quadro[contador_linhas][contador_colunas] == 3)
+            {
+                if (quadro[contador_linhas][contador_colunas + 1] == 0)
+                {
+                    if (quadro[contador_linhas + 1][contador_colunas] == 1)
+                    {
+                        if (quadro[contador_linhas + 1][contador_colunas + 1] == 2) quantidade++;
+                    }
+                    else if (quadro[contador_linhas + 1][contador_colunas] == 2)
+                    {
+                        if (quadro[contador_linhas + 1][contador_colunas + 1] == 1) quantidade++;
+                    }
+                }
+                else if (quadro[contador_linhas][contador_colunas + 1] == 1)
+                {
+                    if (quadro[contador_linhas + 1][contador_colunas] == 0)
+                    {
+                        if (quadro[contador_linhas + 1][contador_colunas + 1] == 2) quantidade++;
+                    }
+                    else if (quadro[contador_linhas + 1][contador_colunas] == 2)
+                    {
+                        if (quadro[contador_linhas + 1][contador_colunas + 1] == 0) quantidade++;
+                    }
+                }
+                else if (quadro[contador_linhas][contador_colunas + 1] == 2)
+                {
+                    if (quadro[contador_linhas + 1][contador_colunas] == 0)
+                    {
+                        if (quadro[contador_linhas + 1][contador_colunas +  1] == 1) quantidade++;
+                    }
+                    else if (quadro[contador_linhas + 1][contador_colunas] == 1)
+                    {
+                        if (quadro[contador_linhas + 1][contador_colunas + 1] == 0) quantidade++;
+                    }
+                }
+            }
+            contador_colunas++;
+        }
+        contador_colunas = 0;
+        contador_linhas++;
+    }
+
+    printf("%d\n", quantidade);
+
+    return 0;
+}
