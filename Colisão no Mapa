@@ -1,0 +1,113 @@
+#include <stdio.h>
+
+int main()
+{
+    int linhas, colunas, quantidade_de_movimentos, x, y, p = 0;
+    scanf("%d %d", &linhas, &colunas);
+
+    int mapa[linhas][colunas];
+
+    for(int l = 0; l < linhas; l++)
+    {
+        for(int c = 0; c < colunas; c++)
+        {
+            scanf("%d", &mapa[l][c]);
+        }
+    }
+
+    scanf("%d", &quantidade_de_movimentos);
+    
+    char movimentos[quantidade_de_movimentos];
+
+    for(int posicao = 0; posicao < quantidade_de_movimentos; posicao++)
+    {
+        scanf(" %c", &movimentos[posicao]);
+    }
+
+    scanf("%d %d", &x, &y);
+
+    mapa[x][y] = -1;//onde o personagem est�
+
+    while(quantidade_de_movimentos > 0)
+    {
+        //para cima
+        if (movimentos[p] == 'C')
+        {
+            if (x == 0); //estou na primeira linha
+            else
+            {
+                if (mapa[x - 1][y] == 1) 
+                {
+                    mapa[x][y] = 1; //n�o est� mais nessa posi��o
+                    x--; //muda a posi��o
+                    mapa[x][y] = -1; //diz que est� nessa posi��o
+                }
+            }
+            p++; //vai pegar o prox�mo movimento
+        }
+
+        //para a direita
+        else if (movimentos[p] == 'D')
+        {
+            if (y == (colunas - 1)); //estou na ultima coluna
+            else
+            {
+                if (mapa[x][y + 1] == 1)
+                {
+                    mapa[x][y] = 1; //n�o est� mais nessa posi��o 
+                    y++; //muda a posi��o
+                    mapa[x][y] = -1; //diz que est� nessa posi��o
+                }
+            }
+            p++; //vai pegar o pr�ximo movimento
+        }
+
+        //para baixo
+        else if (movimentos[p] == 'B')
+        {
+            if (x == (linhas - 1)); //estou na ultima linha
+            else
+            {
+                if (mapa[x + 1][y] == 1)
+                {
+                    mapa[x][y] = 1; //n�o est� mais nessa posi��o
+                    x++; //muda a posi��o
+                    mapa[x][y] = -1; //diz que est� nessa posi��o
+                }
+            }
+            p++; //vai pegar o pr�ximo movimento
+        }
+
+        //para a esquerda
+        else if (movimentos[p] == 'E')
+        {
+            if (y == 0); //estou na primeira coluna
+            else
+            {
+                if (mapa[x][y - 1] == 1)
+                {
+                    mapa[x][y] = 1; //n�o est� mais nessa posi��o
+                    y--; //muda a posi��o
+                    mapa[x][y] = -1; //diz que est� nessa posi��o
+                }
+            }
+            p++; //vai pegar o pr�ximo passo
+        }
+    
+        quantidade_de_movimentos--;
+    }
+
+    for(int l = 0; l < linhas; l++)
+    {
+        for(int c = 0; c < colunas; c++)
+        {
+            if (mapa[l][c] == -1)
+            {
+                printf("(%d,%d)\n", l, c);
+                break;
+            }
+        }
+    }
+
+    return 0;
+}
