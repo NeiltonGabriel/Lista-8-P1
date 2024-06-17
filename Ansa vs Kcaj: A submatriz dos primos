@@ -1,0 +1,246 @@
+#include <stdio.h>
+
+void ler_matriz(int linhas, int colunas, int matriz[linhas][colunas])
+{
+    for (int l = 0; l < linhas; l++)
+    {
+        for (int c = 0; c < colunas; c++)
+        {
+            scanf("%d", &matriz[l][c]);
+        }
+    }
+}
+
+void criar(int linhas, int colunas, int copia[linhas - 1][colunas - 1], int matriz[linhas][colunas], int caminho)
+{
+    int linha_copia = 0, coluna_copia = 0, l, c;
+    if (caminho == 1)
+    {
+        for (l = 0; l < linhas - 1; l++)
+        {
+            for (c = 0; c < colunas - 1; c++)
+            {
+                copia[linha_copia][coluna_copia] = matriz[l][c];
+                coluna_copia++;
+            }
+            coluna_copia = 0;
+            linha_copia++;
+        }
+    }
+    else if (caminho == 2)
+    {
+        for (l = 0; l < linhas - 1; l++)
+        {
+            for (c = 1; c < colunas; c++)
+            {
+                copia[linha_copia][coluna_copia] = matriz[l][c];
+                coluna_copia++;
+            }
+            coluna_copia = 0;
+            linha_copia++;
+        }
+    }
+    else if (caminho == 3)
+    {
+        for (l = 1; l < linhas; l++)
+        {
+            for (c = 0; c < colunas - 1; c++)
+            {
+                copia[linha_copia][coluna_copia] = matriz[l][c];
+                coluna_copia++;
+            }
+            coluna_copia = 0;
+            linha_copia++;
+        }
+    }
+    else if (caminho == 4)
+    {
+        for (l = 1; l < linhas; l++)
+        {
+            for (c = 1; c < colunas; c++)
+            {
+                copia[linha_copia][coluna_copia] = matriz[l][c];
+                coluna_copia++;
+            }
+            coluna_copia = 0;
+            linha_copia++;
+        }
+    }
+}
+
+int primo(int numero)
+{
+    for (int divisor = 2; divisor * divisor <= numero; divisor++)
+    {
+        if (numero % divisor == 0) return 0;
+    }
+
+    return 1;
+}
+
+int somar(int linhas, int colunas, int matriz[linhas][colunas])
+{
+    int soma = 0;
+
+    for (int l = 0; l < linhas; l++)
+    {
+        for (int c = 0; c < colunas; c++)
+        {
+            if (l == c)
+            {
+                if (primo(matriz[l][c]) == 1) soma += matriz[l][c];
+            }
+        }
+    }
+
+    return soma;
+}
+
+int escolher(int soma1, int soma2, int soma3, int soma4)
+{
+    if (soma1 >= soma2 && soma1 >= soma3 && soma1 >= soma4) return 1;
+    if (soma2 >= soma1 && soma2 >= soma3 && soma2 >= soma4) return 2;
+    if (soma3 >= soma1 && soma3 >= soma2 && soma3 >= soma4) return 3;
+    if (soma4 >= soma1 && soma4 >= soma2 && soma4 >= soma3) return 4;
+}
+
+void copia(int linhas, int colunas, int matriz[linhas][colunas], int aux[linhas][colunas])
+{
+    for (int l = 0; l < linhas; l++)
+    {
+        for (int c = 0; c < colunas; c++)
+        {
+            aux[l][c] = matriz[l][c];
+        }
+    }
+}
+
+int maior_primo(int linhas, int colunas, int matriz[linhas][colunas])
+{
+    int maior = 0;
+    for (int l = 0; l < linhas; l++)
+    {
+        for (int c = 0; c < colunas; c++)
+        {
+            if (l == c)
+            {
+                if (primo(matriz[l][c]) == 1 && matriz[l][c] > maior) maior = matriz[l][c];
+            }
+        }
+    }
+
+    return maior;
+}
+
+int main()
+{
+    int linhas, colunas, soma1kcaj, soma2kcaj, soma3kcaj, soma4kcaj, soma1ansa, soma2ansa, soma3ansa, soma4ansa, valork, valora;
+    scanf("%d %d", &linhas, &colunas);
+
+    int kcaj[linhas][colunas], ansa[linhas][colunas];
+
+    ler_matriz(linhas, colunas, kcaj);
+    ler_matriz(linhas, colunas, ansa);
+
+    int sub1ansa[linhas - 1][colunas - 1], sub2ansa[linhas - 1][colunas - 1], sub3ansa[linhas - 1][colunas - 1], sub4ansa[linhas - 1][colunas - 1];
+    int sub1kcaj[linhas - 1][colunas - 1], sub2kcaj[linhas - 1][colunas - 1], sub3kcaj[linhas - 1][colunas - 1], sub4kcaj[linhas - 1][colunas - 1];
+
+    int kcajescolhida[linhas - 1][colunas - 1], ansaescolhida[linhas - 1][colunas - 1];
+
+    criar(linhas, colunas, sub1kcaj, kcaj, 1);
+    criar(linhas, colunas, sub2kcaj, kcaj, 2);
+    criar(linhas, colunas, sub3kcaj, kcaj, 3);
+    criar(linhas, colunas, sub4kcaj, kcaj, 4);
+    criar(linhas, colunas, sub1ansa, ansa, 1);
+    criar(linhas, colunas, sub2ansa, ansa, 2);
+    criar(linhas, colunas, sub3ansa, ansa, 3);
+    criar(linhas, colunas, sub4ansa, ansa, 4);
+
+    soma1kcaj = somar(linhas - 1, colunas - 1, sub1kcaj);
+    soma2kcaj = somar(linhas - 1, colunas - 1, sub2kcaj);
+    soma3kcaj = somar(linhas - 1, colunas - 1, sub3kcaj);
+    soma4kcaj = somar(linhas - 1, colunas - 1, sub4kcaj);
+    soma1ansa = somar(linhas - 1, colunas - 1, sub1ansa);
+    soma2ansa = somar(linhas - 1, colunas - 1, sub2ansa);
+    soma3ansa = somar(linhas - 1, colunas - 1, sub3ansa);
+    soma4ansa = somar(linhas - 1, colunas - 1, sub4ansa);
+
+    int escolhak = escolher(soma1kcaj, soma2kcaj, soma3kcaj, soma4kcaj);
+    int escolhaa = escolher(soma1ansa, soma2ansa, soma3ansa, soma4ansa);
+
+    if (escolhak == 1)
+    {
+        valork = soma1kcaj;
+        copia(linhas - 1, colunas - 1, sub1kcaj, kcajescolhida);
+    }
+    if (escolhak == 2)
+    {
+        valork = soma2kcaj;
+        copia(linhas - 1, colunas - 1, sub2kcaj, kcajescolhida);
+    }
+    if (escolhak == 3)
+    {
+        valork = soma3kcaj;
+        copia(linhas - 1, colunas - 1, sub3kcaj, kcajescolhida);
+    }
+    if (escolhak == 4)
+    {
+        valork = soma4kcaj;
+        copia(linhas - 1, colunas - 1, sub4kcaj, kcajescolhida);
+    }
+
+    if (escolhaa == 1)
+    {
+        valora = soma1ansa;
+        copia(linhas - 1, colunas - 1, sub1ansa, ansaescolhida);
+    }
+    if (escolhaa == 2)
+    {
+        valora = soma2ansa;
+        copia(linhas - 1, colunas - 1, sub2ansa, ansaescolhida);
+    }
+    if (escolhaa == 3)
+    {
+        valora = soma3ansa;
+        copia(linhas - 1, colunas - 1, sub3ansa, ansaescolhida);
+    }
+    if (escolhaa == 4)
+    {
+        valora = soma4ansa;
+        copia(linhas - 1, colunas - 1, sub4ansa, ansaescolhida);
+    }
+
+    int maiork = maior_primo(linhas - 1, colunas - 1, kcajescolhida);
+    int maiora = maior_primo(linhas - 1, colunas -1 , ansaescolhida);
+
+    for (int l = 0; l < linhas - 1; l++)
+    {
+        for (int c = 0; c < colunas - 1; c++)
+        {
+            if (c == colunas - 2) printf("%d\n", kcajescolhida[l][c]);
+            else printf("%d ", kcajescolhida[l][c]);
+        }
+    }
+    printf("\n");
+
+    for (int l = 0; l < linhas - 1; l++)
+    {
+        for (int c = 0; c < colunas - 1; c++)
+        {
+            if (c == colunas - 2) printf("%d\n", ansaescolhida[l][c]);
+            else printf("%d ", ansaescolhida[l][c]);
+        }
+    }
+    printf("\n");
+
+    if (valora > valork) printf("Ansa ganhou\n");
+    else if (valora < valork) printf("Kcaj ganhou\n");
+    else
+    {
+        if (maiork > maiora) printf("Kcaj ganhou\n");
+        else if (maiork < maiora) printf("Ansa ganhou\n");
+        else printf("Empate\n");
+    }
+
+    return 0;
+}
