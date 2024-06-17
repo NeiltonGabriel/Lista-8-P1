@@ -1,0 +1,43 @@
+#include <stdio.h>
+
+int main()
+{
+    int linhas, colunas, maior_geral = 0;
+    scanf("%d %d", &linhas, &colunas);
+
+    int matriz[linhas][colunas];
+
+    for(int linha_atual = 0; linha_atual < linhas; linha_atual++)
+    {
+        for (int coluna_atual = 0; coluna_atual < colunas; coluna_atual++)
+        {
+            scanf("%d", &matriz[linha_atual][coluna_atual]);
+        }
+    }
+
+    int linha = 0;
+    while (linha < linhas)
+    {
+        int maior_sequencia = 1;
+        int sequencia_atual = 1;
+        int coluna = 1;
+
+        while (coluna < colunas)
+        {
+            if (matriz[linha][coluna] >= matriz[linha][coluna - 1])
+            {
+                sequencia_atual++;
+                if (sequencia_atual > maior_sequencia) maior_sequencia = sequencia_atual;
+            }
+            else sequencia_atual = 1;
+            coluna++;
+        }
+
+        printf("Linha %d: %d\n", linha, maior_sequencia);
+        linha++;
+        if (maior_sequencia > maior_geral) maior_geral = maior_sequencia;
+    }
+    printf("Maior Sequencia: %d\n", maior_geral);
+
+    return 0;
+}
