@@ -1,0 +1,78 @@
+#include <stdio.h>
+#include <math.h>
+#define LINHAS 5
+#define COLUNAS 10
+
+int main()
+{
+    int computadores[LINHAS][COLUNAS];
+    double tempos[LINHAS][COLUNAS];
+    int coordenada[2];
+    int temporaria, quantidade = 0;
+    double maior_tempo = 237, maior_distancia = 10;
+
+    for(int l = 0; l < LINHAS; l++)
+    {
+        for(int c = 0; c < COLUNAS; c++)
+        {
+            temporaria = getchar();
+            if (temporaria == ' ' || temporaria == '\n') c--;
+            else computadores[l][c] = temporaria;
+        }
+    }
+
+    for(int l = 0; l < LINHAS; l++)
+    {
+        for(int c = 0; c < COLUNAS; c++)
+        {
+            if (computadores[l][c] == 42) tempos[l][c] = -1;
+            else if (computadores[l][c] == 48)
+            {
+                tempos[l][c] = 40 + (20 * sqrt((l * l) + (c * c)));
+                quantidade++;
+            }
+            else if (computadores[l][c] == 49)
+            {
+                tempos[l][c] = 20 * sqrt((l * l) + (c * c));
+                quantidade++;
+            }
+        }
+    }
+
+    if (quantidade == 0)
+    {
+        printf("Tristemente voce vai ter que aturar os PCs do grad 4\n");
+        return 0;
+    }
+
+    for(int l = 0; l < LINHAS; l++)
+    {
+        for(int c = 0; c < COLUNAS; c++)
+        {
+            if (tempos[l][c] == -1);
+            else
+            {
+                if (tempos[l][c] < maior_tempo) 
+                {
+                    maior_distancia = sqrt((l * l) + (c * c));
+                    coordenada[0] = l;
+                    coordenada[1] = c;
+                    maior_tempo = tempos[l][c];
+                }
+                if (tempos[l][c] == maior_tempo)
+                {
+                    if (sqrt((l * l) + (c * c)) < maior_distancia)
+                    {
+                        maior_distancia = sqrt((l * l) + (c * c));
+                        coordenada[0] = l;
+                        coordenada[1] = c;
+                        maior_tempo = tempos[l][c];
+                    }
+                }
+            }
+        }
+    }
+
+    printf("Vai la pro computador %d da fileira %d\n", coordenada[1], coordenada[0]);
+    return 0;
+}
