@@ -1,0 +1,91 @@
+#include <stdio.h>
+#define Y 2
+
+void explodir(int tamanho, int linha_bomba, int bombas[linha_bomba][2], int mapa[tamanho][tamanho])
+{
+    int contador_bomba = 0, x_da_bomba, y_da_bomba;
+
+    while(contador_bomba < linha_bomba)
+    {
+        x_da_bomba = bombas[contador_bomba][0];
+        y_da_bomba = bombas[contador_bomba][1];
+
+        if(mapa[x_da_bomba][y_da_bomba] == '_')
+        {   
+            //explode para cima
+            if ((x_da_bomba - 1) == -1)
+            {
+                if (mapa[tamanho -1][y_da_bomba] != '#') mapa[tamanho - 1][y_da_bomba] = '_';
+            }
+            else if (mapa[x_da_bomba - 1][y_da_bomba] != '#') mapa[x_da_bomba - 1][y_da_bomba] = '_';
+            
+            //explode para baixo
+            if ((x_da_bomba + 1) == tamanho)
+            {
+                if (mapa[0][y_da_bomba] != '#') mapa[0][y_da_bomba] = '_';
+            }
+            else if (mapa[x_da_bomba + 1][y_da_bomba] != '#') mapa[x_da_bomba + 1][y_da_bomba] = '_';
+
+            //explode para esquerda
+            if ((y_da_bomba - 1) == -1)
+            {
+                if (mapa[x_da_bomba][tamanho - 1] != '#') mapa[x_da_bomba][tamanho - 1] = '_';
+            }
+            else if (mapa[x_da_bomba][y_da_bomba - 1] != '#') mapa[x_da_bomba][y_da_bomba - 1] = '_';
+
+            //explode para direita
+            if ((y_da_bomba + 1) == tamanho)
+            {
+                if (mapa[x_da_bomba][0] != '#') mapa[x_da_bomba][0] = '_';
+            }
+            else if (mapa[x_da_bomba][y_da_bomba + 1] != '#') mapa[x_da_bomba][y_da_bomba + 1] = '_';
+        }
+
+        contador_bomba++;
+    }
+    return;
+}
+
+int main()
+{
+    int tamanho, temporaria, X;
+    scanf("%d", &tamanho);
+    getchar();
+
+    int mapa[tamanho][tamanho];
+
+    for(int l = 0; l < tamanho; l++)
+    {
+        for(int c = 0; c < tamanho; c++)
+        {
+            temporaria = getchar();
+            if (temporaria == '\n') c--;
+            else mapa[l][c] = temporaria;
+        }
+    }
+
+    scanf("%d", &X);
+
+    int bombas[X][Y];
+
+    for(int l = 0; l < X; l++)
+    {
+        for(int c = 0; c < Y; c++)
+        {
+            scanf("%d", &bombas[l][c]);
+        }
+    }
+
+    explodir(tamanho, X, bombas, mapa);
+
+    for(int l = 0; l < tamanho; l++)
+    {
+        for(int c = 0; c < tamanho; c++)
+        {
+            printf("%c", mapa[l][c]);
+            if (c == (tamanho - 1)) printf("\n");
+        }
+    }
+
+    return 0;
+}
