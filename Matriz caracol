@@ -1,0 +1,73 @@
+#include <stdio.h>
+#define MAX 100
+#define INICIAL 0
+#define FINAL 1
+
+int main()
+{
+    int matriz[MAX][MAX];
+    int linha[2], coluna[2];
+    
+    int linhas, colunas, dimensao, contador = 0;
+    scanf("%d", &dimensao);
+
+    linha[INICIAL] = 0;
+    linha[FINAL] = dimensao - 1;
+    coluna[INICIAL] = 0;
+    coluna[FINAL] = dimensao - 1;
+
+    while(contador < (dimensao * dimensao))
+    {
+        //para baixo
+        for(linhas = linha[INICIAL]; (linhas <= linha[FINAL]) && (contador < (dimensao * dimensao)) ; linhas++)
+        {
+            scanf("%d", &matriz[linhas][coluna[INICIAL]]);
+            contador++;
+        }
+
+        coluna[INICIAL]++;
+
+        //para direita
+        for(colunas = coluna[INICIAL]; (colunas <= coluna[FINAL]) && (contador < (dimensao * dimensao)); colunas++)
+        {
+            scanf("%d", &matriz[linha[FINAL]][colunas]);
+            contador++;
+        }
+        
+        linha[FINAL]--;
+
+        //para cima
+
+        for(linhas = linha[FINAL]; (linhas >= linha[INICIAL]) && (contador < (dimensao * dimensao)); linhas--)
+        {
+            scanf("%d", &matriz[linhas][coluna[FINAL]]);
+            contador++;
+        }
+
+        coluna[FINAL]--;
+
+        //para esquerda
+        for(colunas = coluna[FINAL]; (colunas >= coluna[INICIAL]) && (contador < (dimensao * dimensao)); colunas--)
+        {
+            scanf("%d", &matriz[linha[INICIAL]][colunas]);
+            contador++;
+        }
+
+        linha[INICIAL]++;
+    }
+
+    int contador_linha = 0, contador_coluna = 0;
+
+    while(contador_linha < dimensao)
+    {
+        while(contador_coluna < dimensao)
+        {
+            printf("%d\n", matriz[contador_linha][contador_coluna]);
+            contador_coluna++;
+        }
+        contador_coluna = 0;
+        contador_linha++;
+    }
+
+    return 0;
+}
